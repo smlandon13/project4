@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Golf Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Score Card</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="javascript.js"></script>
+    <link type="text/css" href="style.css" rel="stylesheet">
+</head>
+
+<body onload="loadMe()">
+
+<div id="overlaycontainer">
+    <div id="contentdiv">
+        <select id="selectCourse" onchange=" getCourseInfo(this.value)">
+            <option value="11819">Thanksgiving Point</option><option value="12993">South Mountain Golf Club</option>
+            <option value="49290">Alpine Country Club</option>
+            <option value="18300">Fox Hollow Golf Club</option>
+            <option value="37542">Cedar Hills Golf Club</option>
+            <option value="32660">Riverbend Golf Course</option>
+            <option value="39116">Hidden Valley(Mountain Course)</option>
+            <option value="39086">Hidden Valley(Valley Course)</option>
+            <option value="39115">Hidden Valley Lakes Course</option>
+            <option value="49557">The Ranches Golf Club</option>
+            <option value="29182">Mulligans - The Ridge</option>
+            <option value="40359">Talons Cove</option>
+            <option value="41262">Mulligans Golf -- The Meadows</option>
+            <option value="34015">River Oaks Golf Course</option>
+            <option value="14776">Schneiters Pebblebrook Golf Course</option>
+            <option value="52513">Schneiters Pebble Brook Golf Course</option>
+            <option value="19779">Willow Creek Country Club</option>
+            <option value="24129">Mountain View Golf Course</option>
+            <option value="10355">Glenmoor Golf Course</option>
+            <option value="19774">Links At Sleepy Ridge</option>
+        </select>
+        <select id="selectTeebox" onchange=" setCourseInfo(this.value)">
+            <option value="0">pro</option>
+            <option value="1">champion</option>
+            <option value="2">men</option>
+            <option value="3">women</option>
+            <option value="4">senior</option>
+        </select>
+        <div id="golfbanner">
+                <div class="barright">
+                    <div id="countdown"></div>
+                </div>
+            </div>
+            <div id="golfcourselabel">Alpine Country Club</div>
+        </div>
+        <div id="scorecard">
+            <div class="toolbar">
+                <a class="btn btn-primary" href="javascript: addplayer()">+ add player</a>
+            </div>
+            <div id="leftcard">
+                <div id="player1" class="holebox playerbox"> Player 1 <span onclick="deleteplayer(1)" class="deletebtn glyphicon glyphicon-minus-sign"></span></div>
+                <div id="player2" class="holebox playerbox"> Player 2 <span onclick="deleteplayer(2)" class="deletebtn glyphicon glyphicon-minus-sign"></span></div>
+                <div id="player3" class="holebox playerbox"> Player 3 <span onclick="deleteplayer(3)" class="deletebtn glyphicon glyphicon-minus-sign"></span></div>
+                <div id="player4" class="holebox playerbox"> Player 4 <span onclick="deleteplayer(4)" class="deletebtn glyphicon glyphicon-minus-sign"></span></div>
+            </div>
+
+            <div id="rightcard">
+                <div class="holecol totalcol">
+                    <div class="totalheader">total</div>
+                    <div id="grand1" class="holebox">0</div>
+                    <div id="grand2" class="holebox">0</div>
+                    <div id="grand3" class="holebox">0</div>
+                    <div id="grand4" class="holebox">0</div>
+                </div>
+                <div id="column18" class="holecol">
+                    <div class="holenumbertitle">18<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole18" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole18" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole18" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole18" class="holebox">
+                </div>
+                <div id="column17" class="holecol"><div class="holenumbertitle">17<div>par 5</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole17" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole17" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole17" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole17" class="holebox">
+                </div>
+                <div id="column16" class="holecol">
+                    <div class="holenumbertitle">16<div>par 3</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole16" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole16" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole16" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole16" class="holebox">
+                </div>
+                <div id="column15" class="holecol">
+                    <div class="holenumbertitle">15<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole15" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole15" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole15" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole15" class="holebox">
+                </div>
+                <div id="column14" class="holecol">
+                    <div class="holenumbertitle">14<div>par 5</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole14" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole14" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole14" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole14" class="holebox">
+                </div>
+                <div id="column13" class="holecol">
+                    <div class="holenumbertitle">13<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole13" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole13" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole13" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole13" class="holebox">
+                </div>
+                <div id="column12" class="holecol">
+                    <div class="holenumbertitle">12<div>par 3</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole12" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole12" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole12" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole12" class="holebox">
+                </div>
+                <div id="column11" class="holecol">
+                    <div class="holenumbertitle">11<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole11" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole11" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole11" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole11" class="holebox">
+                </div>
+                <div id="column10" class="holecol">
+                    <div class="holenumbertitle">10<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole10" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole10" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole10" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole10" class="holebox">
+                </div>
+                <div id="column9" class="holecol">
+                    <div class="holenumbertitle">9<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole9" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole9" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole9" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole9" class="holebox">
+                </div>
+                <div id="column8" class="holecol">
+                    <div class="holenumbertitle">8<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole8" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole8" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole8" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole8" class="holebox">
+                </div>
+                <div id="column7" class="holecol">
+                    <div class="holenumbertitle">7<div>par 3</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole7" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole7" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole7" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole7" class="holebox">
+                </div>
+                <div id="column6" class="holecol">
+                    <div class="holenumbertitle">6<div>par 5</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole6" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole6" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole6" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole6" class="holebox">
+                </div>
+                <div id="column5" class="holecol">
+                    <div class="holenumbertitle">5<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole5" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole5" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole5" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole5" class="holebox">
+                </div>
+                <div id="column4" class="holecol">
+                    <div class="holenumbertitle">4<div>par 3</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole4" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole4" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole4" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole4" class="holebox">
+                </div>
+                <div id="column3" class="holecol">
+                    <div class="holenumbertitle">3<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole3" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole3" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole3" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole3" class="holebox">
+                </div>
+                <div id="column2" class="holecol">
+                    <div class="holenumbertitle">2<div>par 5</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole2" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole2" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole2" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole2" class="holebox">
+                </div>
+                <div id="column1" class="holecol">
+                    <div class="holenumbertitle">1<div>par 4</div></div>
+                    <input onkeyup="calculatescore(1)" id="player1hole1" class="holebox">
+                    <input onkeyup="calculatescore(2)" id="player2hole1" class="holebox">
+                    <input onkeyup="calculatescore(3)" id="player3hole1" class="holebox">
+                    <input onkeyup="calculatescore(4)" id="player4hole1" class="holebox">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<div id="container"></div>
+
+
+
+
+</body>
