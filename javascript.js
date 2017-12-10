@@ -9,7 +9,7 @@ var golfxhttp = new XMLHttpRequest();
 var local_obj = {latitude: 40.4426135,longitude: -111.8631116,radius: 100};
 
 function loadMe (){
-    $.post("https://golf-courses-api.herokuapp.com/courses", local_obj, function (data, status) {
+    $.post("http://golf-courses-api.herokuapp.com/", local_obj, function (data, status) {
         closeCourses = JSON.parse(data);
         for (var p in closeCourses.courses){
             console.log(closeCourses[p].name);
@@ -33,7 +33,7 @@ function getCourseInfo(id) {
 
         }
     };
-    golfxhttp.open("GET","https://golf-courses-api.herokuapp.com/courses/" + id,true);
+    golfxhttp.open("GET","http://golf-courses-api.herokuapp.com/" + id,true);
     golfxhttp.send();
 
 }
@@ -42,21 +42,6 @@ function setCourseInfo(teeboxid){
     buildcard(teeboxid);
 }
 
-function gettheWeather(thecityname){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200){
-            var obj = JSON.parse(xhttp.responseText);
-            weatherstuff = obj;
-            document.getElementById("currentconditions").innerHTML = obj.weather[0].description;
-            document.getElementById("currenttemp").innerHTML = fullconverter(Number(obj.main.temp));
-            document.getElementById("weatherimage").src = "http://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
-        }
-    };
-
-    xhttp.open("GET", "http://api.openweathermap.org/data/2.5/weather?q="+ thecityname +"&appid=cc8ef8e5c209d938ab3801daa42b5e31", true);
-    xhttp.send();
-}
 
 function fullconverter(k){
     var toc = +k - 273.15;
