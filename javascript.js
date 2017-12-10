@@ -4,20 +4,18 @@ var numholes = 18;
 
 
 var testCourse ={};
-var weatherstuff;
 var golfxhttp = new XMLHttpRequest();
 var local_obj = {latitude: 40.4426135,longitude: -111.8631116,radius: 100};
 
-function loadMe (){
-    $.post("http://golf-courses-api.herokuapp.com/", local_obj, function (data, status) {
+function loadMe() {
+    $.post("https://golf-courses-api.herokuapp.com/courses",local_obj,function(data,status) {
         closeCourses = JSON.parse(data);
         for (var p in closeCourses.courses){
-            console.log(closeCourses[p].name);
-            $(".container").append("<div><span>"+ closeCourses</span>")
-
+            var selectdisplay = "<option value='"+ closeCourses.courses[p].id +"'>" + closeCourses.courses[p].name +"</option>";
+            $("#selectCourse").append(selectdisplay);
         }
+
     });
-};
 
 function getCourseInfo(id) {
     golfxhttp = new XMLHttpRequest;
